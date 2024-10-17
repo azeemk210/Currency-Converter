@@ -4,6 +4,10 @@
 }
 
 body {
+    background-image: url('https://img.freepik.com/premium-photo/neon-euro-symbol-with-digital-graphics-dark-background-3d-rendering_670147-111952.jpg?w=1800');
+    background-size: cover; /* Makes the image cover the entire background */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,6 +73,7 @@ form input {
 
 .msg {
     margin: 2rem 0 2rem 0;
+    
 }
 
 form button {
