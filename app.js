@@ -19,7 +19,8 @@ for (let select of dropdowns) {
         select.append(newOption);
     }
     select.addEventListener("change", (evt) => {
-        updateFlag(evt.target);
+    updateFlag(evt.target);
+    updateCurrencyRate();
     });
 }
 
@@ -33,10 +34,8 @@ const updateFlag = (element) => {
 };
 
 
-btn.addEventListener("click", async (evt) => {
-    evt.preventDefault();
-
-    let fromCurr = document.querySelector(".from select").value;
+const updateCurrencyRate = async () => {
+    let fromCurr = document.querySelector(".from select").value;   
     let toCurr = document.querySelector(".to select").value;
 
     let amount = document.querySelector(".amount input");
@@ -53,24 +52,14 @@ btn.addEventListener("click", async (evt) => {
     let rate = data[fromCurr.toLowerCase()][toCurr.toLowerCase()];
     let finalAmount = amtValue*rate;
     msg.innerHTML = `${amtValue} ${fromCurr} = ${finalAmount} ${toCurr}`;
+}
+
+
+btn.addEventListener("click", async (evt) => {
+    evt.preventDefault();
+    updateCurrencyRate();
 });
 
 window.addEventListener("load", async () => {
-    let fromCurr = document.querySelector(".from select").value;
-    let toCurr = document.querySelector(".to select").value;
-
-    let amount = document.querySelector(".amount input");
-    let amtValue = amount.value;
-    if (amtValue === "" || amtValue < 1) {
-        amtValue = 1;
-        amount.value = "1";
-    }
-
-    // Use the new format: fetch from the base currency only
-    const URL = `${baseURL}/${fromCurr.toLowerCase()}.json`;
-    let response = await fetch(URL);
-    let data = await response.json();
-    let rate = data[fromCurr.toLowerCase()][toCurr.toLowerCase()];
-    let finalAmount = amtValue*rate;
-    msg.innerHTML = `${amtValue} ${fromCurr} = ${finalAmount} ${toCurr}`;
+    updateCurrencyRate();
   });
